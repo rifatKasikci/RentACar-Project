@@ -1,6 +1,7 @@
 ﻿using Business.Concreate;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
+using Entities.Concreate;
 using System;
 
 namespace ReCapProject
@@ -9,13 +10,6 @@ namespace ReCapProject
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemory());
-
-            foreach (var car in carManager.GetById(1))
-            {
-                Console.WriteLine(car.Description);
-            }
-
 
         }
     }

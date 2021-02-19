@@ -31,7 +31,7 @@ namespace DataAccess.Concreate
         {
             Car carToDelete;
 
-            carToDelete = _cars.FirstOrDefault(c => car.Id == c.Id);
+            carToDelete = _cars.SingleOrDefault(c => car.Id == c.Id);
           
             _cars.Remove(carToDelete);
         }

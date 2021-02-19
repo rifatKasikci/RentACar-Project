@@ -9,7 +9,15 @@ namespace Business.Abstract
     {
         List<Car> GetAll();
 
-        List<Car> GetById(int Id);
+        Car GetById(int Id);
+
+        List<Car> GetByDailyPrice(int min , int max);
+
+        void Add(Car car);
+
+        List<Car> GetCarsByBrandId(int id);
+
+        List<Car> GetCarsByColorId(int id);
 
     }
 }
