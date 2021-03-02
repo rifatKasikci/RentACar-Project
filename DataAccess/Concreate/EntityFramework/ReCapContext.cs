@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccess.Concreate
+namespace DataAccess.Concreate.EntityFramework
 {
     public class ReCapContext:DbContext
     {

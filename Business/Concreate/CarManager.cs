@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using DataAccess.Concreate;
 using Entities.Concreate;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,11 @@ namespace Business.Concreate
             
         }
 
+        public void Delete(Car car)
+        {
+            _carDal.Delete(car);
+        }
+
         public List<Car> GetAll()
         {
           return  _carDal.GetAll();
@@ -53,6 +59,11 @@ namespace Business.Concreate
             return _carDal.Get(p => p.Id == Id);
         }
 
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _carDal.GetCarDetails();
+        }
+
         public List<Car> GetCarsByBrandId(int id)
         {
             return _carDal.GetAll(p => p.BrandId == id).ToList();
@@ -61,6 +72,11 @@ namespace Business.Concreate
         public List<Car> GetCarsByColorId(int id)
         {
             return _carDal.GetAll(p => p.ColorId == id).ToList();
+        }
+
+        public void Update(Car car)
+        {
+            _carDal.Update(car);
         }
     }
 }
