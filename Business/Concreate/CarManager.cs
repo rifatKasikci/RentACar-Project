@@ -1,4 +1,6 @@
-﻿using Business.Abstract;
+﻿using Business.Constants;
+using Business.Abstract;
+using Core.Utilities;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
 using Entities.Concreate;
@@ -25,28 +27,37 @@ namespace Business.Concreate
             this.ınMemory = ınMemory;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.Description.Length>7 && car.DailyPrice>0)
             {
                 _carDal.Add(car);
-                Console.WriteLine("Car added.");
+                return new SuccessResult(Messages.CarAdded);
             }
             else
             {
-                Console.WriteLine("Car couldn't added.");
+                return new ErrorResult(Messages.CarNameIsInvalid);
             }
             
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult();
+
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-          return  _carDal.GetAll();
+            if (DateTime.Now.Hour==11)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+            else
+            {
+                return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
+            }
         }
 
         public List<Car> GetByDailyPrice(int min, int max)
@@ -54,14 +65,15 @@ namespace Business.Concreate
             return _carDal.GetAll(p => p.DailyPrice < max && p.DailyPrice > min);
         }
 
-        public Car GetById(int Id)
+        public IResult GetById(int Id)
         {
-            return _carDal.Get(p => p.Id == Id);
+            _carDal.Get(p => p.Id == Id);
+            return new SuccessResult();
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _carDal.GetCarDetails();
+             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
         public List<Car> GetCarsByBrandId(int id)
@@ -74,9 +86,10 @@ namespace Business.Concreate
             return _carDal.GetAll(p => p.ColorId == id).ToList();
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             _carDal.Update(car);
+            return new SuccessResult();
         }
     }
 }

@@ -18,12 +18,12 @@ namespace ReCapProject
             //CarTest();
         }
 
-        private static void CarTest()
+       /* private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
             //carManager.Add(new Car { Id = 11, BrandId = 8, ColorId = 3, CarName = "Ford Focus TrendX", DailyPrice = 575, ModelYear = 2021, Description = "Sedan Dizel" });
             //carManager.Add(new Car { Id = 12, BrandId = 7, ColorId = 3, CarName = "Fiat EGEA URBAN PLUS", DailyPrice = 470, ModelYear = 2020, Description = " boş açıklama" });
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetAll().Data)
             {
                 Console.WriteLine(car.CarName + "/" + car.Id);
             }
@@ -80,6 +80,6 @@ namespace ReCapProject
             Console.WriteLine("********************************************");
 
             Console.WriteLine(colorManager.GetById(7).ColorName);
-        }
+        }*/
     }
 }
