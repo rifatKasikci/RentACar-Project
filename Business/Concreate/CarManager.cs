@@ -64,11 +64,10 @@ namespace Business.Concreate
         {
             return _carDal.GetAll(p => p.DailyPrice < max && p.DailyPrice > min);
         }
-
-        public IResult GetById(int Id)
+        
+        public IDataResult<Car> GetById(int Id)
         {
-            _carDal.Get(p => p.Id == Id);
-            return new SuccessResult();
+           return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == Id));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
