@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concreate
 {
@@ -27,17 +29,11 @@ namespace Business.Concreate
             this.ınMemory = ınMemory;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.Description.Length>7 && car.DailyPrice>0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.CarAdded);
-            }
-            else
-            {
-                return new ErrorResult(Messages.CarNameIsInvalid);
-            }
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
             
         }
 
@@ -84,7 +80,8 @@ namespace Business.Concreate
         {
             return _carDal.GetAll(p => p.ColorId == id).ToList();
         }
-
+       
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
