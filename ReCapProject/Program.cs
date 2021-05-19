@@ -1,8 +1,8 @@
-﻿using Business.Concreate;
+﻿using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
 using DataAccess.Concreate.EntityFramework;
-using Entities.Concreate;
+using Entities.Concrete;
 using System;
 
 namespace ReCapProject

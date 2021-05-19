@@ -3,7 +3,7 @@ using Business.Abstract;
 using Core.Utilities;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
-using Entities.Concreate;
+using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Text;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 
-namespace Business.Concreate
+namespace Business.Concrete
 {
     public class CarManager : ICarService
     {

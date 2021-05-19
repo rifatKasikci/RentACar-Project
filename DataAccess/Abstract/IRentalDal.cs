@@ -1,6 +1,6 @@
 ﻿using Core.DataAccess;
 using Core.Utilities;
-using Entities.Concreate;
+using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;

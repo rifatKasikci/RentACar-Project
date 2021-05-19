@@ -4,12 +4,12 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
-using Entities.Concreate;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Business.Concreate
+namespace Business.Concrete
 {
     public class BrandManager : IBrandService
     {
