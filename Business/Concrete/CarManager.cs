@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Business.ValidationAspects.Autofac;
 
 namespace Business.Concrete
 {
@@ -44,6 +45,7 @@ namespace Business.Concrete
 
         }
 
+        [SecuredOperation("Cars.List")]
         public IDataResult<List<Car>> GetAll()
         {
             if (DateTime.Now.Hour==11)
