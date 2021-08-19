@@ -12,6 +12,7 @@ using System.Text;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Business.ValidationAspects.Autofac;
+using Core.Aspects.Autofac.Caching;
 
 namespace Business.Concrete
 {
@@ -31,6 +32,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
@@ -45,10 +47,11 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Cars.List")]
+ 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour==11)
+            if (DateTime.Now.Hour==9)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
