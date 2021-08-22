@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result); 
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]
@@ -37,9 +37,9 @@ namespace WebAPI.Controllers
             var result = _carService.Delete(car);
             if (result.Success)
             {
-                return Ok(result.Success);
+                return Ok(result);
             }
-            return BadRequest(result.Success);
+            return BadRequest(result);
         }
 
         [HttpPost("update")]
@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
             var result = _carService.Update(car);
             if (result.Success)
             {
-                return Ok(result.Success);
+                return Ok(result);
             }
             return BadRequest(result);
         }
@@ -59,9 +59,9 @@ namespace WebAPI.Controllers
             var result = _carService.GetById(id);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Success);
+            return BadRequest(result);
         }
 
         [HttpGet("getall")]
@@ -70,9 +70,20 @@ namespace WebAPI.Controllers
             var result = _carService.GetAll();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Success);
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcardetail")]
+        public IActionResult GetCarDetail()
+        {
+            var result = _carService.GetCarDetail();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }
