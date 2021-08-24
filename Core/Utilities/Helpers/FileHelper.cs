@@ -11,7 +11,7 @@ namespace Core.Utilities.Helpers
     {
 
         private static string _currentDirectory = Environment.CurrentDirectory + @"\wwwroot";
-        private static string _folderName = @"\Images\";
+        private static string _folderName = @"\images\";
 
 
         public void CheckDirectoryExists(string directory)
@@ -106,7 +106,7 @@ namespace Core.Utilities.Helpers
 
             CheckDirectoryExists(_currentDirectory + _folderName);
             CreateFile(_currentDirectory + _folderName + createRandomName + type, file);
-            return new SuccessResult(_currentDirectory + _folderName + createRandomName + type);
+            return new SuccessResult(createRandomName + type);
 
             
 

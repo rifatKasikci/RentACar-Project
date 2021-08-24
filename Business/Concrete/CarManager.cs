@@ -61,9 +61,9 @@ namespace Business.Concrete
             }
         }
 
-        public List<Car> GetByDailyPrice(int min, int max)
+        public IDataResult<List<Car>> GetByDailyPrice(int min, int max)
         {
-            return _carDal.GetAll(p => p.DailyPrice < max && p.DailyPrice > min);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice < max && p.DailyPrice > min));
         }
         
         public IDataResult<Car> GetById(int Id)
@@ -76,14 +76,19 @@ namespace Business.Concrete
              return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail());
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<CarDetailDto> GetCarDetailByCarId(int carId)
         {
-            return _carDal.GetAll(p => p.BrandId == id).ToList();
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetail().Where(c=>c.Id==carId).FirstOrDefault());
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return _carDal.GetAll(p => p.ColorId == id).ToList();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
+        }
+
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
        
         [ValidationAspect(typeof(CarValidator))]
