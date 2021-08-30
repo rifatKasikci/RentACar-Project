@@ -8,6 +8,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -24,16 +25,25 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            if (rental.ReturnDate != null)
+            var result = CheckRentalDate(rental);
+            if (result.Success)
             {
                 _rentalDal.Add(rental);
-                return new SuccessResult();
+                return new SuccessResult(Messages.CarHired);
             }
-            else
+                return new ErrorResult(result.Message);
+
+        }
+
+        private IResult CheckRentalDate(Rental rental)
+        {
+            var rentals = _rentalDal.GetAll().Where(r => r.ReturnDate.CompareTo(rental.RentDate) > 0).ToList();
+            if (rentals.Count!=0)
             {
                 return new ErrorResult(Messages.CarNotReturned);
             }
-            
+            return new SuccessResult();
+
         }
 
         public IResult Delete(Rental rental)
@@ -47,14 +57,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
-        public IDataResult<Rental> GetByCarId(int carId)
+        public IDataResult<Rental> GetLastRentalByCarId(int carId)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.CarId == carId));
+            return new SuccessDataResult<Rental>(_rentalDal.GetAll().Where(r => r.CarId == carId).LastOrDefault());
         }
 
-        public IDataResult<Rental> GetByCustomerId(int customerId)
+        public IDataResult<List<Rental>> GetByCustomerId(int customerId)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.CustomerId == customerId)); ;
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll().Where(r => r.CustomerId == customerId).ToList()); ;
         }
 
         public IDataResult<Rental> GetById(int id)

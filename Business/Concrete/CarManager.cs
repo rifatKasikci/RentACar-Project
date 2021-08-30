@@ -51,7 +51,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour==9)
+            if (DateTime.Now.Hour==2)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -90,7 +90,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
-       
+
+        public IDataResult<List<Car>> GetCarsByFiltered(CarFilter carFilter)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll().Where(c=>c.BrandId == carFilter.BrandId && c.ColorId==carFilter.ColorId).ToList());
+        }
+
         [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {

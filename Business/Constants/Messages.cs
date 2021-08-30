@@ -24,5 +24,12 @@ namespace Business.Constants
         public static string UserNotFound = "Kullanıcı bulunamadı";
         public static string PasswordIsUncorrect = "Parola yanlış";
         public static string LoginSuccessful = "Giriş başarılı";
+        public static string CreditCardAdded = "Kredi kartı eklendi";
+        public static string CreditCardDeleted = "Kredi kartı silindi";
+        public static string CreditCardUpdated = "Kredi kartı güncellendi";
+        public static string PaymentAdded = "Ödeme alındı";
+        internal static string CreditCardIsIncorrect;
+        public static string InsufficientBalance = "Yetersiz bakiye";
+        public static string CarHired = "Araba kiralandı";
     }
 }
