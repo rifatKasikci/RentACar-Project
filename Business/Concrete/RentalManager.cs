@@ -16,10 +16,16 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
+        ICarDal _carDal;
+        ICustomerDal _customerDal;
+        IFindeksScoreDal _findeksScoreDal;
 
-        public RentalManager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal , ICarDal carDal , ICustomerDal customerDal , IFindeksScoreDal findeksScoreDal)
         {
             _rentalDal = rentalDal;
+            _carDal = carDal;
+            _customerDal = customerDal;
+            _findeksScoreDal = findeksScoreDal;
         }
 
         [ValidationAspect(typeof(RentalValidator))]
@@ -28,11 +34,31 @@ namespace Business.Concrete
             var result = CheckRentalDate(rental);
             if (result.Success)
             {
+                if (CheckFindeksScoreForRental(rental.CarId , rental.CustomerId).Success)
+                {
                 _rentalDal.Add(rental);
                 return new SuccessResult(Messages.CarHired);
+                }
+                else
+                {
+                    return new ErrorResult(Messages.FindeksScoreIsInsufficient);
+                }
+               
             }
                 return new ErrorResult(result.Message);
 
+        }
+
+        private IResult CheckFindeksScoreForRental(int carId , int customerId)
+        {
+            Car car = _carDal.Get(c => c.Id == carId);
+            Customer customer = _customerDal.Get(cu => cu.Id == customerId);
+            FindeksScore findeksScore = _findeksScoreDal.Get(fc => fc.CustomerId == customer.Id);
+            if (car.MinFindeksScore <= findeksScore.Score)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult();
         }
 
         private IResult CheckRentalDate(Rental rental)

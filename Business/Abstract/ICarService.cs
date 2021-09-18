@@ -16,10 +16,11 @@ namespace Business.Abstract
         IDataResult<Car> GetById(int Id);
         IDataResult<List<CarDetailDto>> GetCarDetail();
         IDataResult<List<Car>> GetByDailyPrice(int min , int max);
-        IDataResult<List<Car>> GetCarsByBrandId(int brandId);
-        IDataResult<List<Car>> GetCarsByColorId(int colorId);
+        IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int brandId);
+        IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int colorId);
         IDataResult<CarDetailDto> GetCarDetailByCarId(int carId);
         IDataResult<List<Car>> GetCarsByFiltered(CarFilter carFilter);
+        IDataResult<List<CarDetailDto>> GetCarDetailsByFiltered(CarFilter carFilter);
 
     }
 }

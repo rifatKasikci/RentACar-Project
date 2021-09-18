@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -43,9 +44,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Customer customer)
+        public IActionResult Update(CustomerUpdateDto customerUpdateDto)
         {
-            var result = _customerService.Update(customer);
+            var result = _customerService.Update(customerUpdateDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -68,6 +69,17 @@ namespace WebAPI.Controllers
         public IActionResult GetAll()
         {
             var result = _customerService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcustomerdetailsbyuserid")]
+        public IActionResult GetCustomerDetailsByUserId(int userId)
+        {
+            var result = _customerService.GetCustomerDetailsByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);

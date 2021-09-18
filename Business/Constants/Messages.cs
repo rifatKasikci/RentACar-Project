@@ -28,8 +28,12 @@ namespace Business.Constants
         public static string CreditCardDeleted = "Kredi kartı silindi";
         public static string CreditCardUpdated = "Kredi kartı güncellendi";
         public static string PaymentAdded = "Ödeme alındı";
-        internal static string CreditCardIsIncorrect;
+        public static string CreditCardIsIncorrect = "Kredi kartı bilgileri yanlış";
         public static string InsufficientBalance = "Yetersiz bakiye";
         public static string CarHired = "Araba kiralandı";
+        public static string FindeksScoreAdded = "Findeks skoru eklendi";
+        public static string FindeksScoreDeleted = "Findeks skoru silindi";
+        public static string FindeksScoreUpdated = "Findeks skoru güncellendi";
+        public static string FindeksScoreIsInsufficient = "Findeks skoru yetersiz";
     }
 }

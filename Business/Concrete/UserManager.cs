@@ -7,6 +7,7 @@ using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -51,10 +52,19 @@ namespace Business.Concrete
             return _userDal.GetClaims(user);
         }
 
-        [ValidationAspect(typeof(UserValidator))]
-        public IResult Update(User user)
+        public IDataResult<UserDetailDto> GetUserDetailsByEmail(string email)
         {
-            _userDal.Update(user);
+            return new SuccessDataResult<UserDetailDto>(_userDal.GetUserDetailsByEmail(email));
+        }
+
+        [ValidationAspect(typeof(UserValidator))]
+        public IResult Update(UserUpdateDto userUpdateDto)
+        {
+            var userForUpdate = GetByUserId(userUpdateDto.Id).Data;
+            userForUpdate.FirstName = userUpdateDto.FirstName;
+            userForUpdate.LastName = userUpdateDto.LastName;
+            userForUpdate.Email = userUpdateDto.Email;
+            _userDal.Update(userForUpdate);
             return new SuccessResult();
         }
     }

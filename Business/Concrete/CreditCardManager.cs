@@ -5,6 +5,7 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -41,9 +42,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CreditCard>>(_creditCardDal.GetAll());
         }
 
-        public IDataResult<CreditCard> GetByCustomerId(int customerId)
+        public IDataResult<List<CreditCard>> GetByCustomerId(int customerId)
         {
-            return new SuccessDataResult<CreditCard>(_creditCardDal.Get(cc=>cc.CustomerId == customerId));
+            return new SuccessDataResult<List<CreditCard>>(_creditCardDal.GetAll(cc=>cc.CustomerId == customerId).ToList());
         }
 
         public IResult Update(CreditCard creditCard)

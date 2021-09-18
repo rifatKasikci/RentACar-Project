@@ -4,6 +4,7 @@ using Core.Aspects.Autofac.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,15 +14,21 @@ namespace Business.Concrete
     public class CustomerManager : ICustomerService
     {
         ICustomerDal _customerDal;
+        IFindeksScoreDal _findeksScoreDal;
 
-        public CustomerManager(ICustomerDal customerDal)
+        public CustomerManager(ICustomerDal customerDal , IFindeksScoreDal findeksScoreDal)
         {
             _customerDal = customerDal;
+            _findeksScoreDal = findeksScoreDal;
         }
 
         [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
+            FindeksScore findeksScore = new FindeksScore() { CustomerId = customer.Id };
+            int score = new Random().Next(500, 1900);
+            findeksScore.Score = score;
+            _findeksScoreDal.Add(findeksScore);
             _customerDal.Add(customer);
             return new SuccessResult();
         }
@@ -42,10 +49,17 @@ namespace Business.Concrete
             return new SuccessDataResult<Customer>(_customerDal.Get(u => u.Id == id));
         }
 
-        [ValidationAspect(typeof(CustomerValidator))]
-        public IResult Update(Customer customer)
+        public IDataResult<CustomerDetailDto> GetCustomerDetailsByUserId(int userId)
         {
-            _customerDal.Update(customer);
+            return new SuccessDataResult<CustomerDetailDto>(_customerDal.GetCustomerDetailsByUserId(userId));
+        }
+
+        [ValidationAspect(typeof(CustomerValidator))]
+        public IResult Update(CustomerUpdateDto customerUpdateDto)
+        {
+            var customerForUpdate = GetById(customerUpdateDto.CustomerId).Data;
+            customerForUpdate.CompanyName = customerUpdateDto.CompanyName;
+            _customerDal.Update(customerForUpdate);
             return new SuccessResult();
         }
     }

@@ -55,10 +55,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
-            else
-            {
                 return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
-            }
         }
 
         public IDataResult<List<Car>> GetByDailyPrice(int min, int max)
@@ -81,14 +78,19 @@ namespace Business.Concrete
             return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetail().Where(c=>c.Id==carId).FirstOrDefault());
         }
 
-        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByFiltered(CarFilter carFilter)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail().Where(cd=>cd.BrandId == carFilter.BrandId && cd.ColorId == carFilter.ColorId).ToList());
         }
 
-        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail().Where(cd=>cd.BrandId == brandId).ToList());
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail().Where(cd => cd.ColorId == colorId).ToList());
         }
 
         public IDataResult<List<Car>> GetCarsByFiltered(CarFilter carFilter)

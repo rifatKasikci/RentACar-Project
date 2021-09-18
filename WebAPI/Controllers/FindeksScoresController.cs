@@ -11,19 +11,30 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CreditCardsController : ControllerBase
+    public class FindeksScoresController : ControllerBase
     {
-        ICreditCardService _creditCardService;
+        IFindeksScoreService _findeksScoreService;
 
-        public CreditCardsController(ICreditCardService creditCardService)
+        public FindeksScoresController(IFindeksScoreService findeksScoreService)
         {
-            _creditCardService = creditCardService;
+            _findeksScoreService = findeksScoreService;
         }
 
         [HttpPost("add")]
-        public IActionResult Add(CreditCard creditCard)
+        public IActionResult Add(FindeksScore findeksScore)
         {
-            var result = _creditCardService.Add(creditCard);
+            var result = _findeksScoreService.Add(findeksScore);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("update")]
+        public IActionResult Update(FindeksScore findeksScore)
+        {
+            var result = _findeksScoreService.Update(findeksScore);
             if (result.Success)
             {
                 return Ok(result);
@@ -32,9 +43,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(CreditCard creditCard)
+        public IActionResult Delete(FindeksScore findeksScore)
         {
-            var result = _creditCardService.Delete(creditCard);
+            var result = _findeksScoreService.Delete(findeksScore);
             if (result.Success)
             {
                 return Ok(result);
@@ -45,12 +56,14 @@ namespace WebAPI.Controllers
         [HttpGet("getbycustomerid")]
         public IActionResult GetByCustomerId(int customerId)
         {
-            var result = _creditCardService.GetByCustomerId(customerId);
+            var result = _findeksScoreService.GetByCustomerId(customerId);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
+
+
     }
 }

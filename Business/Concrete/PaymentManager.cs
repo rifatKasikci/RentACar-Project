@@ -23,13 +23,6 @@ namespace Business.Concrete
 
         public IResult Pay(Payment payment)
         {
-            var creditCard = _creditCardDal.GetAll().Where(cc => cc.CustomerId == payment.CustomerId).LastOrDefault();
-            if (!IsLimitSufficient(creditCard , payment))
-            {
-                return new ErrorResult(Messages.InsufficientBalance);
-            }
-            creditCard.CardLimit -= payment.Amount;
-            _creditCardDal.Update(creditCard);
             _paymentDal.Add(payment);
             return new SuccessResult(Messages.PaymentAdded);
         }
