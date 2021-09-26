@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Entities.Concrete;
 using Core.Utilities;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -25,11 +26,22 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
-            FindeksScore findeksScore = new FindeksScore() { CustomerId = customer.Id };
+            Customer newCustomer = _customerDal.Get(c => c.UserId == customer.UserId);
+            FindeksScore findeksScore = new FindeksScore() { CustomerId = newCustomer.Id };
             int score = new Random().Next(500, 1900);
             findeksScore.Score = score;
             _findeksScoreDal.Add(findeksScore);
+            FindeksScore newFindeks = _findeksScoreDal.Get(fs => fs.CustomerId == newCustomer.Id);
+            newCustomer.FindeksScoreId = newFindeks.Id;
+            _customerDal.Update(newCustomer);
+            return new SuccessResult();
+        }
+
+        public IResult AddUserId(User user)
+        {
+            Customer customer = new Customer { UserId = user.Id };
             _customerDal.Add(customer);
+            Add(customer);
             return new SuccessResult();
         }
 

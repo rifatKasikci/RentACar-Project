@@ -54,6 +54,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<FindeksScoreManager>().As<IFindeksScoreService>().SingleInstance();
             builder.RegisterType<EfFindeksScoreDal>().As<IFindeksScoreDal>().SingleInstance();
 
+            builder.RegisterType<ClaimManager>().As<IClaimService>().SingleInstance();
+            builder.RegisterType<EfClaimDal>().As<IClaimDal>().SingleInstance();
+
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

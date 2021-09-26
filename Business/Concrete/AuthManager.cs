@@ -14,11 +14,15 @@ namespace Business.Concrete
     public class AuthManager : IAuthService
     {
         private IUserService _userService;
+        private ICustomerService _customerService;
+        private IClaimService _claimService;
         private ITokenHelper _tokenHelper;
 
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper, ICustomerService customerService, IClaimService claimService)
         {
             _userService = userService;
+            _customerService = customerService;
+            _claimService = claimService;
             _tokenHelper = tokenHelper;
         }
 
@@ -59,6 +63,8 @@ namespace Business.Concrete
                 Status = true
             };
             _userService.Add(user);
+            _customerService.AddUserId(user);
+            _claimService.AddUserClaim(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
 

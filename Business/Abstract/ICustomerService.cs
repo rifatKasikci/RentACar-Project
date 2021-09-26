@@ -1,4 +1,5 @@
-﻿using Core.Utilities;
+﻿using Core.Entities.Concrete;
+using Core.Utilities;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
@@ -10,6 +11,7 @@ namespace Business.Abstract
     public interface ICustomerService
     {
         IResult Add(Customer customer);
+        IResult AddUserId(User user);
         IResult Update(CustomerUpdateDto customerUpdateDto);
         IResult Delete(Customer customer);
         IDataResult<List<Customer>> GetAll();

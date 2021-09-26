@@ -65,6 +65,17 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getclaimsbyuserid")]
+        public IActionResult GetClaimsByUserId(int userId)
+        {
+            var result = _userService.GetClaimsByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getuserdetailsbyemail")]
         public IActionResult GetUserDetailsByEmail(string email)
         {

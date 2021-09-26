@@ -52,6 +52,12 @@ namespace Business.Concrete
             return _userDal.GetClaims(user);
         }
 
+        public IDataResult<List<OperationClaim>> GetClaimsByUserId(int userId)
+        {
+            User user = _userDal.Get(u => u.Id == userId);
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+        }
+
         public IDataResult<UserDetailDto> GetUserDetailsByEmail(string email)
         {
             return new SuccessDataResult<UserDetailDto>(_userDal.GetUserDetailsByEmail(email));
