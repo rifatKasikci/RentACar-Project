@@ -145,6 +145,6 @@ For frontend project (**RentACar-Frontend**)
   
 ## Feedbacks
 
-If you have any feedback, you can send an e-mail to rifatkasikci@gmail.com with the subject title **RentACarProject**. 
+If you have any feedback, you can send an e-mail to rifatkasikci@gmail.com with the subject title **RentACar-Project**. 
 
   
