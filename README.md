@@ -8,7 +8,7 @@ This project is the backend of my rent a car project that I developed at the C#-
 
 * Fluent Validation
 * Autofac
-* JWT(Json Web Token)
+* JWT(JSON Web Token)
 * Entity Framework
 * Caching, Validation, Transaction, Performance Aspects
 
