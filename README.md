@@ -32,7 +32,7 @@ This project is the backend of my rent a car project that I developed at the C#-
 | ImagePath | nvarchar(MAX) | False       |         |
 | Date      | datetime      | False       |         |
 
-### Car
+### Cars
 
 | Name            | Data Type     | Allow Nulls | Default |
 | :-------------- | :------------ | :---------- | :------ |
@@ -45,14 +45,14 @@ This project is the backend of my rent a car project that I developed at the C#-
 | MinFindeksPoint     | int  | False        |         |
 | Description | nvarchar(250)      | False       |    |
 
-### Color
+### Colors
 
 | Name | Data Type    | Allow Nulls | Default |
 | :--- | :----------- | :---------- | :------ |
 | Id   | int          | False       |         |
 | ColorName | nvarchar(50) | False       |         |
 
-### Credit Card (Test)
+### Credit Cards
 
 | Name        | Data Type     | Allow Nulls | Default |
 | :---------- | :------------ | :---------- | :------ |
@@ -66,7 +66,7 @@ This project is the backend of my rent a car project that I developed at the C#-
 | CardType         | nvarchar(50)   | False       |         |
 | CardLimit         | int  | False       |         | 
 
-### Customer
+### Customers
 
 | Name        | Data Type    | Allow Nulls | Default |
 | :---------- | :----------- | :---------- | :------ |
@@ -99,7 +99,7 @@ This project is the backend of my rent a car project that I developed at the C#-
 | CustomerId | int | False       |         |
 | Amount | int | False       |         |
 
-### Rental
+### Rentals
 
 | Name          | Data Type | Allow Nulls | Default |
 | :------------ | :-------- | :---------- | :------ |
