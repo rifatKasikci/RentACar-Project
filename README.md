@@ -143,7 +143,7 @@ For frontend project (**RentACar-Frontend**)
 [RentACar-Frontend](https://github.com/rifatKasikci/RentACar-Frontend)
 
   
-## Geri Bildirim
+## Feedbacks
 
 If you have any feedback, you can send an e-mail to rifatkasikci@gmail.com with the subject title **RentACarProject**. 
 
